@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   :root {
     --disney-header: hsl(228, 36%, 5%);
+    --disney-background: #040714;
   }
 
 * {
@@ -18,6 +19,7 @@ html {
 
 body {
   color: white;
+  background: var(--disney-background);
 }
 
 `;
