@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import ImgSlider from './ImgSlider';
+import Viewers from './Viewers';
+
 interface Props {}
 
 const Home: React.FC<Props> = () => {
   return (
     <Container>
       <ImgSlider />
+      <Viewers />
     </Container>
   );
 };
