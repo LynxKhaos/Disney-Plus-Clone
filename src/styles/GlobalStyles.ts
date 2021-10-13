@@ -15,11 +15,14 @@ const GlobalStyle = createGlobalStyle`
 
 html {
   font-size: 62.5%;
+  
 }
 
 body {
   color: white;
   background: var(--disney-background);
+  font-size: 1.6rem;
+
 }
 
 `;
