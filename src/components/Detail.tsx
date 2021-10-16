@@ -1,45 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import db from '../firebase';
 
 interface Props {}
 
+interface Movie {
+  backgroundImg: string;
+  cardImg: string;
+  description: string;
+  id: string;
+  subTitle: string;
+  title: string;
+  titleImg: string;
+  type: string;
+}
+
 const Detail: React.FC<Props> = () => {
+  const [detailState, setDetailState] = useState<Movie>();
+
+  const { id } = useParams<{ id?: string }>();
+
+  useEffect(() => {
+    db.collection('movies')
+      .doc(id)
+      .get()
+      .then((doc: any) => {
+        if (doc.exists) {
+          setDetailState(doc.data());
+        } else {
+        }
+      });
+  }, [id]);
+
+  console.log(detailState);
+
   return (
     <Container>
-      <Background>
-        <img
-          src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4F39B7E16726ECF419DD7C49E011DD95099AA20A962B0B10AA1881A70661CE45/scale?width=1440&aspectRatio=1.78&format=jpeg'
-          alt=''
-        />
-      </Background>
-      <ImageTitle>
-        <img
-          src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/D7AEE1F05D10FC37C873176AAA26F777FC1B71E7A6563F36C6B1B497CAB1CEC2/scale?width=1440&aspectRatio=1.78'
-          alt=''
-        />
-      </ImageTitle>
-      <Controls>
-        <PlayButton>
-          <img src='/images/play-icon-black.png' alt='' />
-          <span>PLAY</span>
-        </PlayButton>
-        <TrailerButton>
-          <img src='/images/play-icon-white.png' alt='' />
-          <span>Trailer</span>
-        </TrailerButton>
-        <AddButton>
-          <span>+</span>
-        </AddButton>
-        <GroupWatchButton>
-          <img src='/images/group-icon.png' alt='' />
-        </GroupWatchButton>
-      </Controls>
-      <SubTitle>2018 · 7m · Family, Fantasy, Kids, Animation</SubTitle>
-      <Description>
-        A Chinese mom who's sad when her grown son leaves home gets another
-        change at motherhood when one of her dumplings springs to life. But she
-        finds that nothing stays cute and small forever.
-      </Description>
+      {detailState && (
+        <>
+          <Background>
+            <img src={detailState?.backgroundImg} alt='' />
+          </Background>
+          <ImageTitle>
+            <img src={detailState?.titleImg} alt='' />
+          </ImageTitle>
+          <Controls>
+            <PlayButton>
+              <img src='/images/play-icon-black.png' alt='' />
+              <span>PLAY</span>
+            </PlayButton>
+            <TrailerButton>
+              <img src='/images/play-icon-white.png' alt='' />
+              <span>Trailer</span>
+            </TrailerButton>
+            <AddButton>
+              <span>+</span>
+            </AddButton>
+            <GroupWatchButton>
+              <img src='/images/group-icon.png' alt='' />
+            </GroupWatchButton>
+          </Controls>
+          <SubTitle>{detailState?.subTitle}</SubTitle>
+          <Description>{detailState?.description}</Description>
+        </>
+      )}
     </Container>
   );
 };
@@ -71,6 +96,7 @@ const ImageTitle = styled.div`
   width: 35vw;
   min-width: 20rem;
   margin-top: 6rem;
+  margin-bottom: 2rem;
 
   img {
     width: 100%;
