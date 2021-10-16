@@ -1,37 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
+import { selectMovies } from '../features/movie/movieSlice';
+import { useSelector } from 'react-redux';
 
 interface Props {}
+interface Movie {
+  backgroundImg: string;
+  cardImg: string;
+  description: string;
+  id: string;
+  subTitle: string;
+  title: string;
+  titleImg: string;
+  type: string;
+}
 
 const Movies: React.FC<Props> = () => {
+  const movies = useSelector(selectMovies);
+  console.log(movies);
+
   return (
     <Container>
       <h4>Recommended for You</h4>
       <Content>
-        <Wrap>
-          <img
-            src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg'
-            alt=''
-          />
-        </Wrap>
-        <Wrap>
-          <img
-            src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg'
-            alt=''
-          />
-        </Wrap>
-        <Wrap>
-          <img
-            src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg'
-            alt=''
-          />
-        </Wrap>
-        <Wrap>
-          <img
-            src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg'
-            alt=''
-          />
-        </Wrap>
+        {movies &&
+          movies.map((movie: Movie) => (
+            <Wrap key={movie.id}>
+              <img src={movie.cardImg} alt='' />
+            </Wrap>
+          ))}
       </Content>
     </Container>
   );
@@ -40,12 +37,10 @@ const Movies: React.FC<Props> = () => {
 export default Movies;
 
 const Container = styled.div`
-
-h4 {
-  font-size:2.4rem;
-  margin-bottom: 2rem;
-}
-
+  h4 {
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const Content = styled.div`

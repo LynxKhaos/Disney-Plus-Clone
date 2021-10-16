@@ -68,7 +68,7 @@ const SignUp = styled.a`
   cursor: pointer;
   transition: all 250ms;
   letter-spacing: 1.5px;
-  margin: 0.8rem 0 1.2rem 0;
+  margin: 0.8rem 0 1.4rem 0;
 
   &:hover {
     background: #0483ee;
@@ -80,7 +80,7 @@ font-size: 1.2rem;
 letter-spacing: 1.5px;
 text-align: center;
 line-height: 1.5;
-margin-bottom: 1rem;
+margin-bottom: 2rem;
 `
 
 const CTALogoTwo = styled.img`
